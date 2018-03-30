@@ -3,85 +3,57 @@
 #include <time.h>
 #include <string>
 #include <vector>
+#include "SDK.h"
 
 #pragma warning(disable : 4996)
 
 
-
-
 std::vector<std::vector<std::string>> LevelNames = {
-	{"Levels/FrontEnd/FrontEnd", "In Main Menu"},
-	{"\0", "In Loading Screen"},
-	{"Levels/MP/Tatooine_01/Tatooine_01", "Mos Eisley, Tatooine"},
-	{"Levels/MP/Yavin_01/Yavin_01", "The Greate Temple, Yavin IV"},
-	{"Levels/MP/Kamino_01/Kamino_01", "Cloning Facility, Kamino"},
-	{"Levels/MP/Naboo_01/Naboo_01", "Theed, Naboo"},
-	{"Levels/MP/StarKiller_01/StarKiller_01", "Command Center, Starkiller Base"},
-	{"Levels/MP/Takodana_01/Takodana_01", "Maz's Castle, Takodana"},
-	{"Levels/MP/Endor_01/Endor_01", "Research Station 9, Endor"},
-	{"Levels/MP/Kashyyyk_01/Kashyyyk_01", "Kachirho Beach, Kashyyyk"},
-	{"Levels/MP/Jakku_01/Jakku_01", "The Graveyard, Jakku"},
-	{"Levels/MP/Deathstar_02/Deathstar_02", "Command Sector North, Death Star II"},
-	{"Levels/MP/Hoth_01/Hoth_01", "Outpost Delta, Hoth"},
-	{"S2/Levels/Crait_01/Crait_01", "Abandoned Rebel Outpost, Crait"},
-	{"S2/Levels/CloudCity_01/CloudCity_01", "Administrator's Palace, Bespin"}
+	{"Levels/FrontEnd/FrontEnd", "In Main Menu", "none"},
+	{"\0", "In Loading Screen", "none"},
+	{"Levels/MP/Tatooine_01/Tatooine_01", "Mos Eisley, Tatooine", "orig"},
+	{"Levels/MP/Yavin_01/Yavin_01", "The Greate Temple, Yavin IV", "orig"},
+	{"Levels/MP/Kamino_01/Kamino_01", "Cloning Facility, Kamino", "preq"},
+	{"Levels/MP/Naboo_01/Naboo_01", "Theed, Naboo", "preq"},
+	{"Levels/MP/StarKiller_01/StarKiller_01", "Command Center, Starkiller Base", "new"},
+	{"Levels/MP/Takodana_01/Takodana_01", "Maz's Castle, Takodana", "new"},
+	{"Levels/MP/Endor_01/Endor_01", "Research Station 9, Endor", "orig"},
+	{"Levels/MP/Kashyyyk_01/Kashyyyk_01", "Kachirho Beach, Kashyyyk", "preq"},
+	{"Levels/MP/Jakku_01/Jakku_01", "The Graveyard, Jakku", "new"},
+	{"Levels/MP/Deathstar_02/Deathstar_02", "Command Sector North, Death Star II", "orig"},
+	{"Levels/MP/Hoth_01/Hoth_01", "Outpost Delta, Hoth", "orig"},
+	{"S2/Levels/Crait_01/Crait_01", "Abandoned Rebel Outpost, Crait", "new" },
+	{"S2/Levels/CloudCity_01/CloudCity_01", "Administrator's Palace, Bespin", "orig" }
 };
-
-
-
 
 
 char* Translate(char* inchar) {
 	for (int i = 0; i < LevelNames.size(); i++) {
-		if (strcmp(inchar, LevelNames[i][0].c_str()) == 0) return (char*)LevelNames[i][1].c_str();
+		if (strcmp(inchar, LevelNames[i][0].c_str()) == 0) {
+			return (char*)LevelNames[i][1].c_str();
+		}
 	}
-	//if (strcmp(inchar, "Levels/FrontEnd/FrontEnd") == 0) return new char[9] {"In Menus"};
 	return inchar;
 }
 
 
-
-class ClientLevel
-{
-public:
-	char pad_0000[56]; //0x0000
-	char* LevelName; //0x0038
-	char pad_0040[264]; //0x0040
-	char* GetLevelName() {
-		if (this != nullptr && this->LevelName != nullptr) {
-			return this->LevelName;
-		}
-		return (char*)"\0";
-	}
-}; //Size: 0x0148
-
-
-class GameContext
-{
-public:
-	char pad_0000[56]; //0x0000
-	class ClientLevel* clientLevel; //0x0038
-	char pad_0040[1032]; //0x0040
-	ClientLevel* GetClientLevel() {
-		if (this->clientLevel != nullptr) {
-			return this->clientLevel;
+char* GetFaction(char* map, int TeamID) {
+	if (TeamID == 0) return (char*)"\0";
+	for (int i = 0; i < LevelNames.size(); i++) {
+		if (strcmp(map, LevelNames[i][0].c_str()) == 0) {
+			if (LevelNames[i][2] == "preq") {
+				return (TeamID == 1) ? (char*)"Galactic Republic" : (char*)"Confederacy";
+			}
+			if (LevelNames[i][2] == "orig") {
+				return (TeamID == 1) ? (char*)"Rebel Alliance" : (char*)"Galactic Empire";
+			}
+			if (LevelNames[i][2] == "new") {
+				return (TeamID == 1) ? (char*)"Resistance" : (char*)"First Order";
+			}
 		}
 	}
-}; //Size: 0x0448
-
-
-class StaticGameContext
-{
-public:
-	class GameContext* gameContext; //0x0000
-	char pad_0008[56]; //0x0008
-	GameContext* GetGameContext() {
-		if (this->gameContext != nullptr) {
-			return this->gameContext;
-		}
-	}
-}; //Size: 0x0040
-
+	return (char*)"\0";
+}
 
 
 typedef struct DiscordRichPresence {
@@ -103,14 +75,14 @@ typedef struct DiscordRichPresence {
 } DiscordRichPresence;
 
 
-DiscordRichPresence GetUpdate(const char* map, int score) {
+DiscordRichPresence GetUpdate(const char* data, const char* faction) {
 
 	char buffer[256];
 	DiscordRichPresence discordPresence;
 	memset(&discordPresence, 0, sizeof(discordPresence));
-	discordPresence.state = map;
+	discordPresence.state = data;
 //	sprintf(buffer, "Score:  %d", score);
-	//discordPresence.details = buffer;
+	discordPresence.details = faction;
 	discordPresence.instance = 0;
 	return discordPresence;
 }
@@ -148,7 +120,8 @@ DWORD WINAPI Looper(LPVOID lpParam)
 	{
 		Sleep(500);
 		StaticGameContext* pGC = (StaticGameContext*)(DWORD64*)(0x14428A188);
-		updatePresence(&GetUpdate(Translate(pGC->GetGameContext()->GetClientLevel()->GetLevelName()), 100));
+		updatePresence(&GetUpdate(Translate(pGC->GetGameContext()->GetClientLevel()->GetLevelName()),
+			GetFaction(pGC->GetGameContext()->GetClientLevel()->GetLevelName(), pGC->GetGameContext()->GetPlayerManager()->GetLocalPlayer()->GetTeam())));
 		
 		if (GetAsyncKeyState(VK_END)) {
 			MessageBox(NULL, "Ejecting SWBF2 RPC", "Ejecting", MB_OK);
