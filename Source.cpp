@@ -9,25 +9,54 @@
 
 
 std::vector<std::vector<std::string>> LevelNames = {
-	{"Levels/FrontEnd/FrontEnd", "In Main Menu", "none"},
-	{"\0", "In Loading Screen", "none"},
-	{"Levels/MP/Tatooine_01/Tatooine_01", "Mos Eisley, Tatooine", "orig"},
-	{"Levels/MP/Yavin_01/Yavin_01", "The Greate Temple, Yavin IV", "orig"},
-	{"Levels/MP/Kamino_01/Kamino_01", "Cloning Facility, Kamino", "preq"},
-	{"Levels/MP/Naboo_01/Naboo_01", "Theed, Naboo", "preq"},
-	{"Levels/MP/StarKiller_01/StarKiller_01", "Command Center, Starkiller Base", "new"},
-	{"Levels/MP/Takodana_01/Takodana_01", "Maz's Castle, Takodana", "new"},
-	{"Levels/MP/Endor_01/Endor_01", "Research Station 9, Endor", "orig"},
-	{"Levels/MP/Kashyyyk_01/Kashyyyk_01", "Kachirho Beach, Kashyyyk", "preq"},
-	{"Levels/MP/Jakku_01/Jakku_01", "The Graveyard, Jakku", "new"},
-	{"Levels/MP/Deathstar_02/Deathstar_02", "Command Sector North, Death Star II", "orig"},
-	{"Levels/MP/Hoth_01/Hoth_01", "Outpost Delta, Hoth", "orig"},
-	{"S2/Levels/Crait_01/Crait_01", "Abandoned Rebel Outpost, Crait", "new" },
-	{"S2/Levels/CloudCity_01/CloudCity_01", "Administrator's Palace, Bespin", "orig" }
+{"Levels/FrontEnd/FrontEnd", "In Main Menu", "none"},
+{"\0", "In Loading Screen", "none"},
+{"Levels/MP/Tatooine_01/Tatooine_01", "Mos Eisley, Tatooine", "orig"},
+{"Levels/MP/Yavin_01/Yavin_01", "The Greate Temple, Yavin IV", "orig"},
+{"Levels/MP/Kamino_01/Kamino_01", "Cloning Facility, Kamino", "preq"},
+{"Levels/MP/Naboo_01/Naboo_01", "Theed, Naboo", "preq"},
+{"Levels/MP/StarKiller_01/StarKiller_01", "Command Center, Starkiller Base", "new"},
+{"Levels/MP/Takodana_01/Takodana_01", "Maz's Castle, Takodana", "new"},
+{"Levels/MP/Endor_01/Endor_01", "Research Station 9, Endor", "orig"},
+{"Levels/MP/Kashyyyk_01/Kashyyyk_01", "Kachirho Beach, Kashyyyk", "preq"},
+{"Levels/MP/Jakku_01/Jakku_01", "The Graveyard, Jakku", "new"},
+{"Levels/MP/Deathstar_02/Deathstar_02", "Command Sector North, Death Star II", "orig"},
+{"Levels/MP/Hoth_01/Hoth_01", "Outpost Delta, Hoth", "orig"},
+{"S2/Levels/Crait_01/Crait_01", "Abandoned Rebel Outpost, Crait", "new" },
+{"S2/Levels/CloudCity_01/CloudCity_01", "Administrator's Palace, Bespin", "orig" }
+};
+
+std::vector<std::vector<std::string>> ClassNames = {
+{"Gameplay/Characters/StormTrooperShared", "Soldier", "orig" },
+{"Gameplay/Characters/StormTrooperShared_B1", "Soldier", "preq"},
+
+{"Gameplay/Characters/Heroes/Specializations/Hero_Weapon_WookieWar", "Wookie Warrior", "wookiewarrior" },
+{"Gameplay/Characters/Heroes/Specializations/Hero_Weapon_Special_R", "Rocket Trooper", "rockettrooper" },
+{ "Gameplay/Characters/Heroes/Specializations/Hero_Lightsaber_Luke", "Luke Skywalker", "lukeskywalker" },
+{ "Gameplay/Characters/Heroes/Specializations/Hero_Weapon_Lando", "Lando Calrissian", "landocalrissian" },
+{ "Gameplay/Characters/Heroes/Specializations/Hero_Weapon_Leia", "Leia Organa", "leiaorgana" },
+{ "Gameplay/Characters/Heroes/Specializations/Hero_Lightsaber_Rey", "Rey", "rey" },
+{ "Gameplay/Characters/Heroes/Specializations/Hero_Weapon_Hansolo", "Han Solo", "hansolo" },
+{ "Gameplay/Characters/Heroes/Specializations/Hero_Lightsaber_Yoda", "Yoda", "yoda" },
+{ "Gameplay/Characters/Heroes/Specializations/Hero_Weapon_Chewbacca", "Chewbacca", "chewbacca" },
+{ "Gameplay/Characters/Heroes/Specializations/Hero_Weapon_Finn", "Finn" , "finn"},
+
+{ "Gameplay/Characters/Heroes/Specializations/Hero_Weapon_Special_D", "Death Trooper", "deathtrooper" },
+{ "Gameplay/Characters/Heroes/Specializations/Hero_Weapon_Special_J", "Rocket Trooper", "rocketrooper" },
+{ "Gameplay/Characters/Heroes/Specializations/Hero_Weapon_BobaFett", "Boba Fett" , "bobafett"},
+{ "Gameplay/Characters/Heroes/Specializations/Hero_Lightsaber_KyloRen", "Kylo Ren", "kyloren" },
+{ "Gameplay/Characters/Heroes/Specializations/Hero_Lightsaber_Maul", "Darth Maul", "darthmaul" },
+{ "Gameplay/Characters/Heroes/Specializations/Hero_Weapon_Bossk", "Bossk", "bossk" },
+{ "Gameplay/Characters/Heroes/Specializations/Hero_Lightsaber_Darth", "Darth Vader", "darthvader" },
+{ "Gameplay/Characters/Heroes/Specializations/Hero_Weapon_Iden", "Iden Versio", "idenversio" },
+{ "Gameplay/Characters/Heroes/Specializations/Hero_Lightsaber_Emper", "Emperor Palpatine", "emperorpalpatine" },
+{ "Gameplay/Characters/Heroes/Specializations/Hero_Weapon_Phasma", "Captain Phasma", "captainphasma" },
+
 };
 
 
-char* Translate(char* inchar) {
+
+char* TranslateLevel(char* inchar) {
 	for (int i = 0; i < LevelNames.size(); i++) {
 		if (strcmp(inchar, LevelNames[i][0].c_str()) == 0) {
 			return (char*)LevelNames[i][1].c_str();
@@ -37,19 +66,45 @@ char* Translate(char* inchar) {
 }
 
 
-char* GetFaction(char* map, int TeamID) {
+char* TranslateClass(char* inchar) {
+	for (int i = 0; i < ClassNames.size(); i++) {
+		if (strcmp(inchar, ClassNames[i][0].c_str()) == 0) {
+			return (char*)ClassNames[i][1].c_str();
+		}
+	}
+	return inchar;
+}
+
+char* TranslateImage(char* inchar) {
+	for (int i = 0; i < ClassNames.size(); i++) {
+		if (strcmp(inchar, ClassNames[i][0].c_str()) == 0) {
+			return (char*)ClassNames[i][2].c_str();
+		}
+	}
+	return inchar;
+}
+
+char* GetFaction(char* map, int TeamID, char* classname) {
 	if (TeamID == 0) return (char*)"\0";
 	for (int i = 0; i < LevelNames.size(); i++) {
 		if (strcmp(map, LevelNames[i][0].c_str()) == 0) {
-			if (LevelNames[i][2] == "preq") {
-				return (TeamID == 1) ? (char*)"Galactic Republic" : (char*)"Confederacy";
+			char* str = new char[128];
+			if (strcmp(TranslateClass(classname), "Soldier") == 0) {
+
+				if (LevelNames[i][2] == "preq") {
+					strcpy(str, (TeamID == 1) ? (char*)"Galactic Republic" : (char*)"Confederacy");
+				}
+				if (LevelNames[i][2] == "orig") {
+					strcpy(str, (TeamID == 1) ? (char*)"Rebel Alliance" : (char*)"Galactic Empire");
+				}
+				if (LevelNames[i][2] == "new") {
+					strcpy(str, (TeamID == 1) ? (char*)"Resistance" : (char*)"First Order");
+				}
 			}
-			if (LevelNames[i][2] == "orig") {
-				return (TeamID == 1) ? (char*)"Rebel Alliance" : (char*)"Galactic Empire";
+			else {
+				strcpy(str, TranslateClass(classname));
 			}
-			if (LevelNames[i][2] == "new") {
-				return (TeamID == 1) ? (char*)"Resistance" : (char*)"First Order";
-			}
+			return str;
 		}
 	}
 	return (char*)"\0";
@@ -75,7 +130,7 @@ typedef struct DiscordRichPresence {
 } DiscordRichPresence;
 
 
-DiscordRichPresence GetUpdate(const char* data, const char* faction) {
+DiscordRichPresence GetUpdate(const char* data, const char* faction, const char* image) {
 
 	char buffer[256];
 	DiscordRichPresence discordPresence;
@@ -83,6 +138,9 @@ DiscordRichPresence GetUpdate(const char* data, const char* faction) {
 	discordPresence.state = data;
 //	sprintf(buffer, "Score:  %d", score);
 	discordPresence.details = faction;
+	discordPresence.largeImageKey = image;
+	discordPresence.largeImageText = faction;
+	discordPresence.smallImageKey = image;
 	discordPresence.instance = 0;
 	return discordPresence;
 }
@@ -120,8 +178,10 @@ DWORD WINAPI Looper(LPVOID lpParam)
 	{
 		Sleep(500);
 		StaticGameContext* pGC = (StaticGameContext*)(DWORD64*)(0x14428A188);
-		updatePresence(&GetUpdate(Translate(pGC->GetGameContext()->GetClientLevel()->GetLevelName()),
-			GetFaction(pGC->GetGameContext()->GetClientLevel()->GetLevelName(), pGC->GetGameContext()->GetPlayerManager()->GetLocalPlayer()->GetTeam())));
+		updatePresence(&GetUpdate(TranslateLevel(pGC->GetGameContext()->GetClientLevel()->GetLevelName()),
+			GetFaction(pGC->GetGameContext()->GetClientLevel()->GetLevelName(), pGC->GetGameContext()->GetPlayerManager()->GetLocalPlayer()->GetTeam(),
+				pGC->GetGameContext()->GetPlayerManager()->GetLocalPlayer()->GetClientSoldier()->GetSoldierBlueprint()->GetName()), 
+			TranslateImage(pGC->GetGameContext()->GetPlayerManager()->GetLocalPlayer()->GetClientSoldier()->GetSoldierBlueprint()->GetName())));
 		
 		if (GetAsyncKeyState(VK_END)) {
 			MessageBox(NULL, "Ejecting SWBF2 RPC", "Ejecting", MB_OK);

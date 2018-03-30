@@ -1,4 +1,31 @@
 #pragma once
+class SoldierBlueprint
+{
+public:
+	char pad_0000[24]; //0x0000
+	char* Name; //0x0018
+	char pad_0020[40]; //0x0020
+	char* GetName() {
+		if (this != nullptr && this->Name != nullptr) {
+			return this->Name;
+		}
+		return (char*)"\0";
+	}
+}; //Size: 0x0048
+
+class ClientSoldierEntity
+{
+public:
+	char pad_0000[728]; //0x0000
+	class SoldierBlueprint* soldierBlueprint; //0x02D8
+	char pad_02E0[1376]; //0x02E0
+
+	SoldierBlueprint* GetSoldierBlueprint() {
+		if (this != nullptr && this->soldierBlueprint != nullptr) {
+			return this->soldierBlueprint;
+		}
+	}
+}; //Size: 0x0840
 
 class ClientLevel
 {
@@ -25,10 +52,10 @@ public:
 	char pad_005C[420]; //0x005C
 	class AttachedControllable* AttachedControllable; //0x0200
 	char pad_0208[8]; //0x0208
-	class ClientSoldier* ControlledControllable; //0x0210
+	class ClientSoldierEntity* ControlledControllable; //0x0210
 	char pad_0218[3624]; //0x0218
 
-	ClientSoldier* GetClientSoldier() {
+	ClientSoldierEntity* GetClientSoldier() {
 		if (this != nullptr && this->AttachedControllable == nullptr && this->ControlledControllable != nullptr) {
 			return this->ControlledControllable;
 		}
