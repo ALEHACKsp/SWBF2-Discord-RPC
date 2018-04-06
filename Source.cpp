@@ -31,7 +31,7 @@ std::vector<std::vector<std::string>> LevelNames = {
 { "Levels/Space/SB_DroidBattleShip_01/SB_DroidBattleShip_01", "Ryloth - Lucrehulk-Class Battleship", "preq", "none" },
 { "Levels/Space/SB_Resurgent_01/SB_Resurgent_01", "Unknown Regions - Resurgent-Class Star Destroyer", "new", "none" },
 { "Levels/Space/SB_Fondor_01/SB_Fondor_01", "Fondor - Imperial Shipyard", "orig", "none" },
-{ "S1/Levels/Space/SB_SpaceBear_01/SB_SpaceBear_01", "D'Qar - Resistance Base Evacuation", "new", "none"}
+{ "S1/Levels/Space/SB_SpaceBear_01/SB_SpaceBear_01", "D'Qar - Resistance Base Evacuation", "new", "none"} // I like spacebears too
 
 };
 
