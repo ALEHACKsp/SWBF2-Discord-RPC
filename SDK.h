@@ -1,4 +1,39 @@
 #pragma once
+
+#pragma warning(disable : 4996)
+
+class VehicleEntityData
+{
+public:
+	char pad_0000[568]; //0x0000
+	char* VehicleName; //0x0238
+	char pad_0240[520]; //0x0240
+	
+	char* GetName() {
+		if (this != nullptr && this->VehicleName != nullptr) {
+			return this->VehicleName;
+		}
+		return (char*)"\0";
+	}
+}; //Size: 0x0448
+
+class AttachedControllable
+{
+public:
+	char pad_0000[48]; //0x0000
+	class VehicleEntityData* vehicleEntity; //0x0030
+	char pad_0038[560]; //0x0038
+
+
+	VehicleEntityData* GetVehicleEntityData() {
+		if (this != nullptr && this->vehicleEntity != nullptr) {
+			return this->vehicleEntity;
+		}
+	}
+	
+}; //Size: 0x1058
+
+
 class SoldierBlueprint
 {
 public:
@@ -50,15 +85,26 @@ public:
 	char pad_0020[56]; //0x0020
 	uint32_t Team; //0x0058
 	char pad_005C[420]; //0x005C
-	class AttachedControllable* AttachedControllable; //0x0200
+	class AttachedControllable* attachedControllable; //0x0200
 	char pad_0208[8]; //0x0208
-	class ClientSoldierEntity* ControlledControllable; //0x0210
+	class ClientSoldierEntity* controlledControllable; //0x0210
 	char pad_0218[3624]; //0x0218
 
+
+	
+
 	ClientSoldierEntity* GetClientSoldier() {
-		if (this != nullptr && this->AttachedControllable == nullptr && this->ControlledControllable != nullptr) {
-			return this->ControlledControllable;
+		if (this != nullptr && this->attachedControllable == nullptr && this->controlledControllable != nullptr) {
+			return this->controlledControllable;
 		}
+	}
+
+
+	AttachedControllable* GetAttachedControllable() {
+		if (this != nullptr && this->attachedControllable != nullptr) {
+			return this->attachedControllable;
+		}
+
 	}
 	uint32_t GetTeam() {
 		if (this != nullptr && &this->Team != nullptr) {
@@ -75,12 +121,19 @@ public:
 
 	bool IsValid() {
 		if (this != nullptr &&
-			this->AttachedControllable == nullptr  &&
-			this->ControlledControllable != nullptr )
+			this->attachedControllable == nullptr  &&
+			this->controlledControllable != nullptr )
 			return true;
 		return false;
 	}
+	char* GetPlayerClassName() {
+		if (IsValid()) {
+			return this->GetClientSoldier()->GetSoldierBlueprint()->GetName();
+		}
+		//if (strcmp(outchar, "\0")) return outchar;
+		return this->GetAttachedControllable()->GetVehicleEntityData()->GetName();
 
+	}
 
 }; //Size: 0x1040
 
