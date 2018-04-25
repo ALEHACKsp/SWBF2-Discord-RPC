@@ -9,110 +9,134 @@
 #pragma warning(disable : 4996)
 
 
-std::vector<std::vector<std::string>> LevelNames = {
-{"Levels/FrontEnd/FrontEnd", "In Main Menu", "none", "\0"},
-{"\0", "In Loading Screen", "none", "\0" },
-{"Levels/MP/Tatooine_01/Tatooine_01", "Mos Eisley, Tatooine", "orig", "tatooine"},
-{"Levels/MP/Yavin_01/Yavin_01", "The Greate Temple, Yavin IV", "orig", "yavin4"},
-{"Levels/MP/Kamino_01/Kamino_01", "Cloning Facility, Kamino", "preq", "kamino"},
-{"Levels/MP/Naboo_01/Naboo_01", "Theed, Naboo", "preq", "naboo"},
-{"Levels/MP/StarKiller_01/StarKiller_01", "Command Center, Starkiller Base", "new", "starkillerbase"},
-{"Levels/MP/Takodana_01/Takodana_01", "Maz's Castle, Takodana", "new", "takodana"},
-{"Levels/MP/Endor_01/Endor_01", "Research Station 9, Endor", "orig", "endor"},
-{"Levels/MP/Kashyyyk_01/Kashyyyk_01", "Kachirho Beach, Kashyyyk", "preq", "kashyyyk"},
-{"Levels/MP/Jakku_01/Jakku_01", "The Graveyard, Jakku", "new", "jakku"},
-{"Levels/MP/DeathStar02_01/DeathStar02_01", "Command Sector North, Death Star II", "orig", "deathstar2"},
-{"Levels/MP/Hoth_01/Hoth_01", "Outpost Delta, Hoth", "orig", "hoth"},
-{"S1/Levels/Crait_01/Crait_01", "Abandoned Rebel Outpost, Crait", "new", "crait" },
-{"S2/Levels/CloudCity_01/CloudCity_01", "Administrator's Palace, Bespin", "orig" , "bespin"},
 
-
-{ "Levels/Space/SB_Kamino_01/SB_Kamino_01", "Kamino - Research Outpost", "preq", "kamino" },
-{ "Levels/Space/SB_DroidBattleShip_01/SB_DroidBattleShip_01", "Ryloth - Lucrehulk-Class Battleship", "preq", "none" },
-{ "Levels/Space/SB_Resurgent_01/SB_Resurgent_01", "Unknown Regions - Resurgent-Class Star Destroyer", "new", "none" },
-{ "Levels/Space/SB_Fondor_01/SB_Fondor_01", "Fondor - Imperial Shipyard", "orig", "none" },
-{ "S1/Levels/Space/SB_SpaceBear_01/SB_SpaceBear_01", "D'Qar - Resistance Base Evacuation", "new", "none"} // I like spacebears too
-
+enum Trilogy {
+	Prequil,
+	Original,
+	NewEra, 
+	None
 };
 
-std::vector<std::vector<std::string>> ClassNames = {
-{"Gameplay/Characters/StormTrooperShared", "Soldier", "orig" },
-{"Gameplay/Characters/StormTrooperShared_B1", "Soldier", "preq"},
 
-{"Gameplay/Characters/heroes/Specializations/Hero_Weapon_WookieWarrior", "Wookie Warrior", "wookiewarrior" },
-{ "Gameplay/Characters/heroes/Specializations/Hero_Weapon_Special_RebelJumpTrooper", "Jump Trooper", "rebelrockettrooper" },
-{"Gameplay/Characters/heroes/Specializations/Hero_Weapon_Special_Clone_JumpTrooper", "Jet Trooper", "clonejettrooper" },
-
-
-{ "Gameplay/Characters/Heroes/Specializations/Hero_Lightsaber_Luke", "Luke Skywalker", "lukeskywalker" },	// note the difference in capitolization...
-{ "Gameplay/Characters/Heroes/Specializations/Hero_Weapon_Lando", "Lando Calrissian", "landocalrissian" },
-{ "Gameplay/Characters/Heroes/Specializations/Hero_Weapon_Leia", "Leia Organa", "leiaorgana" },
-{ "Gameplay/Characters/Heroes/Specializations/Hero_Lightsaber_Rey", "Rey", "rey" },
-{ "Gameplay/Characters/Heroes/Specializations/Hero_Weapon_Hansolo", "Han Solo", "hansolo" },
-{ "Gameplay/Characters/Heroes/Specializations/Hero_Lightsaber_Yoda", "Yoda", "yoda" },
-{ "Gameplay/Characters/Heroes/Specializations/Hero_Weapon_Chewbacca", "Chewbacca", "chewbacca" },
-{ "Gameplay/Characters/Heroes/Specializations/Hero_Weapon_Finn", "Finn" , "finn"},
-
-
-
-
-{ "Gameplay/Characters/heroes/Specializations/Hero_Weapon_Special_DeathTrooper", "Death Trooper", "deathtrooper" },
-{ "Gameplay/Characters/heroes/Specializations/Hero_Weapon_B2", "B2 Battle Droid", "b2" },
-{ "Gameplay/Characters/heroes/Specializations/Hero_Weapon_B2RP", "B2-RP Rocket Droid", "b2rprocketdroid" },
-{ "Gameplay/Characters/heroes/Specializations/Hero_Weapon_Special_JumpTrooper", "Rocket Trooper", "skytrooper" },
-{ "Gameplay/Characters/heroes/Specializations/Hero_Weapon_Special_FirstOrder_JumpTrooper", "Jump Trooper", "firstorderrockettrooper" },
-{ "Gameplay/Characters/heroes/Specializations/Hero_Weapon_Special_Flametrooper", "Flame Trooper", "flametrooper" },
-{ "Gameplay/Characters/Heroes/Specializations/Hero_Weapon_BobaFett", "Boba Fett" , "bobafett"},
-{ "Gameplay/Characters/Heroes/Specializations/Hero_Lightsaber_KyloRen", "Kylo Ren", "kyloren" },
-{ "Gameplay/Characters/Heroes/Specializations/Hero_Lightsaber_Maul", "Darth Maul", "darthmaul" },
-{ "Gameplay/Characters/Heroes/Specializations/Hero_Weapon_Bossk", "Bossk", "bossk" },
-{ "Gameplay/Characters/Heroes/Specializations/Hero_Lightsaber_DarthVader", "Darth Vader", "darthvader" },
-{ "Gameplay/Characters/Heroes/Specializations/Hero_Weapon_Iden", "Iden Versio", "idenversio" },
-{ "Gameplay/Characters/Heroes/Specializations/Hero_Lightsaber_Emperor", "Emperor Palpatine", "palpatine" },
-{ "Gameplay/Characters/Heroes/Specializations/Hero_Weapon_Phasma", "Captain Phasma", "phasma" },
-
-
-//vehicles
-
-{"Gameplay/Vehicles/Air/AirSpeeder/Vehicle_Air_AirSpeeder", "Air Speeder",  "airspeeder"},
-{ "Gameplay/Vehicles/Air/AWing/Vehicle_Air_AWing", "A-Wing",  "awing" },
-{ "Gameplay/Vehicles/Air/AWingRZ3/Vehicle_Air_AWingRZ3", "A-Wing RZ3",  "awing" },
-
-{ "Gameplay/Vehicles/Air/BTLYwing/Vehicle_Air_BTLYWing", "BTL-B Y-Wing",  "btlbywing" },
-{ "Gameplay/Vehicles/Air/Ywing/Vehicle_Air_YWing", "Y-Wing",  "btlaywing" },
-{ "Gameplay/Vehicles/Air/XWing_T65/Vehicle_Air_XWing_T65", "X-Wing",  "xwingt65" },
-
-
-{ "Gameplay/Vehicles/Air/DroidTriFighter/Vehicle_Air_DroidTriFighter", "Tri-Fighter",  "trifighter" },
-{ "Gameplay/Vehicles/Air/VultureDroid/Vehicle_Air_VultureDroid", "Vulture Droid",  "vulturedroid" },
-{ "Gameplay/Vehicles/Air/HyeneBomber/Vehicle_Air_HyeneBomber", "Hyene Bomber",  "hyenabomber" },
-{ "Gameplay/Vehicles/Air/HyenaBomber/Vehicle_Air_HyenaBomber", "Hyene Bomber",  "hyenabomber" }, //excelent naming conventions DICE
-
-{ "Gameplay/Vehicles/Air/ARC170/Vehicle_Air_ARC170", "ARC170",  "arc170" },
-{ "Gameplay/Vehicles/Air/Vwing/Vehicle_Air_Vwing", "V-Wing",  "vwing" },
-
-
-{ "Gameplay/Vehicles/Air/TieFighterSpecialForces/Vehicle_Air_TieFighterSpecialForces", "Special Forces Tie Fighter",  "tiefightersf" },
-{ "Gameplay/Vehicles/Air/TieFighterFirstOrder/Vehicle_Air_TieFighterFirstOrder", "First Order Tie Fighter",  "tiefighterfo" },
-
-{ "Gameplay/Vehicles/Air/XWing_T70/Vehicle_Air_XWing_T70", "T70 X-Wing",  "xwingt70" },
-
-{ "Gameplay/Vehicles/Air/TieFighter/Vehicle_Air_TieFighter", "Tie Fighter",  "tiefighter" },
-{ "Gameplay/Vehicles/Air/TieInterceptor/Vehicle_Air_TieInterceptor", "Tie Interceptor",  "tieinterceptor" },
-{ "Gameplay/Vehicles/Air/TieBomber/Vehicle_Air_TieBomber", "Tie Bomber",  "tiebomber" },
-
-
-
+class MapObject {
+public:
+	MapObject(std::string m_baseName, std::string m_mapTitle, Trilogy m_trilogy, std::string m_imageName)
+		: baseName(m_baseName), mapTitle(m_mapTitle), trilogy(m_trilogy), imageName(m_imageName){}
+	std::string baseName;
+	std::string mapTitle;
+	Trilogy trilogy;
+	std::string imageName;
 };
+
+
+class PlayerObject {
+public:
+	std::string baseName;
+	std::string playerName;
+	std::string imageName;
+	PlayerObject(std::string m_baseName, std::string m_playerName, std::string m_imageName) 
+		: baseName(m_baseName), playerName(m_playerName), imageName(m_imageName) {}
+};
+
+std::vector<MapObject> maplist = {
+	//Menus
+	MapObject("Levels/FrontEnd/FrontEnd", "In Main Menu", Trilogy::None, "\0"),
+	MapObject("\0", "In Loading Screen", Trilogy::None, "\0"),
+
+	//galactic assault
+	MapObject("Levels/MP/Tatooine_01/Tatooine_01", "Mos Eisley, Tatooine", Trilogy::Original, "tatooine"),
+	MapObject("Levels/MP/Yavin_01/Yavin_01", "The Greate Temple, Yavin IV", Trilogy::Original, "yavin4"),
+	MapObject("Levels/MP/Kamino_01/Kamino_01", "Cloning Facility, Kamino", Trilogy::Prequil, "kamino"),
+	MapObject("Levels/MP/Naboo_01/Naboo_01", "Theed, Naboo", Trilogy::Prequil, "naboo"),
+	MapObject("Levels/MP/StarKiller_01/StarKiller_01", "Command Center, Starkiller Base", Trilogy::NewEra, "starkillerbase"),
+	MapObject("Levels/MP/Takodana_01/Takodana_01", "Maz's Castle, Takodana", Trilogy::NewEra, "takodana"),
+	MapObject("Levels/MP/Endor_01/Endor_01", "Research Station 9, Endor", Trilogy::Original, "endor"),
+	MapObject("Levels/MP/Kashyyyk_01/Kashyyyk_01", "Kachirho Beach, Kashyyyk", Trilogy::Prequil, "kashyyyk"),
+	MapObject("Levels/MP/Jakku_01/Jakku_01", "The Graveyard, Jakku", Trilogy::NewEra, "jakku"),
+	MapObject("Levels/MP/DeathStar02_01/DeathStar02_01", "Command Sector North, Death Star II", Trilogy::Original, "deathstar2"),
+	MapObject("Levels/MP/Hoth_01/Hoth_01", "Outpost Delta, Hoth", Trilogy::Original, "hoth"),
+	MapObject("S1/Levels/Crait_01/Crait_01", "Abandoned Rebel Outpost, Crait", Trilogy::NewEra, "crait"),
+	MapObject("S2/Levels/CloudCity_01/CloudCity_01", "Administrator's Palace, Bespin", Trilogy::Original , "bespin"),
+
+	//starfighter assault
+	MapObject("Levels/Space/SB_Kamino_01/SB_Kamino_01", "Kamino - Research Outpost", Trilogy::Prequil, "kamino"),
+	MapObject("Levels/Space/SB_DroidBattleShip_01/SB_DroidBattleShip_01", "Ryloth - Lucrehulk-Class Battleship", Trilogy::Prequil, "none"),
+	MapObject("Levels/Space/SB_Resurgent_01/SB_Resurgent_01", "Unknown Regions - Resurgent-Class Star Destroyer", Trilogy::NewEra, "none"),
+	MapObject("Levels/Space/SB_Fondor_01/SB_Fondor_01", "Fondor - Imperial Shipyard", Trilogy::Original, "none"),
+	MapObject("S1/Levels/Space/SB_SpaceBear_01/SB_SpaceBear_01", "D'Qar - Resistance Base Evacuation", Trilogy::NewEra, "none")
+};
+
+
+
+std::vector<PlayerObject> playerList = {
+	//shared
+	PlayerObject("Gameplay/Characters/StormTrooperShared", "Soldier", "orig"),
+	PlayerObject("Gameplay/Characters/StormTrooperShared_B1", "Soldier", "preq"),
+	
+	//enforcer
+	PlayerObject("Gameplay/Characters/heroes/Specializations/Hero_Weapon_WookieWarrior", "Wookie Warrior", "wookiewarrior"),
+	PlayerObject("Gameplay/Characters/heroes/Specializations/Hero_Weapon_Special_Flametrooper", "Flame Trooper", "flametrooper"),
+	PlayerObject("Gameplay/Characters/heroes/Specializations/Hero_Weapon_B2", "B2 Battle Droid", "b2"),
+	PlayerObject("Gameplay/Characters/heroes/Specializations/Hero_Weapon_Special_DeathTrooper", "Death Trooper", "deathtrooper"),
+
+	//aerial
+	PlayerObject("Gameplay/Characters/heroes/Specializations/Hero_Weapon_Special_Clone_JumpTrooper", "Jet Trooper", "clonejettrooper"),
+	PlayerObject("Gameplay/Characters/heroes/Specializations/Hero_Weapon_Special_RebelJumpTrooper", "Jump Trooper", "rebelrockettrooper"),
+	PlayerObject("Gameplay/Characters/heroes/Specializations/Hero_Weapon_Special_FirstOrder_JumpTrooper", "Jump Trooper", "firstorderrockettrooper"),
+	PlayerObject("Gameplay/Characters/heroes/Specializations/Hero_Weapon_Special_JumpTrooper", "Rocket Trooper", "skytrooper"),
+	PlayerObject("Gameplay/Characters/heroes/Specializations/Hero_Weapon_B2RP", "B2-RP Rocket Droid", "b2rprocketdroid"),
+
+
+	//heroes
+	PlayerObject("Gameplay/Characters/Heroes/Specializations/Hero_Lightsaber_Luke", "Luke Skywalker", "lukeskywalker"),	// note the difference in capitolization...
+	PlayerObject("Gameplay/Characters/Heroes/Specializations/Hero_Weapon_Lando", "Lando Calrissian", "landocalrissian"),
+	PlayerObject("Gameplay/Characters/Heroes/Specializations/Hero_Weapon_Leia", "Leia Organa", "leiaorgana"),
+	PlayerObject("Gameplay/Characters/Heroes/Specializations/Hero_Lightsaber_Rey", "Rey", "rey"),
+	PlayerObject("Gameplay/Characters/Heroes/Specializations/Hero_Weapon_Hansolo", "Han Solo", "hansolo"),
+	PlayerObject("Gameplay/Characters/Heroes/Specializations/Hero_Lightsaber_Yoda", "Yoda", "yoda"),
+	PlayerObject("Gameplay/Characters/Heroes/Specializations/Hero_Weapon_Chewbacca", "Chewbacca", "chewbacca"),
+	PlayerObject("Gameplay/Characters/Heroes/Specializations/Hero_Weapon_Finn", "Finn" , "finn"),
+
+	//villians
+	PlayerObject("Gameplay/Characters/Heroes/Specializations/Hero_Weapon_BobaFett", "Boba Fett" , "bobafett"),
+	PlayerObject("Gameplay/Characters/Heroes/Specializations/Hero_Lightsaber_KyloRen", "Kylo Ren", "kyloren"),
+	PlayerObject("Gameplay/Characters/Heroes/Specializations/Hero_Lightsaber_Maul", "Darth Maul", "darthmaul"),
+	PlayerObject("Gameplay/Characters/Heroes/Specializations/Hero_Weapon_Bossk", "Bossk", "bossk"),
+	PlayerObject("Gameplay/Characters/Heroes/Specializations/Hero_Lightsaber_DarthVader", "Darth Vader", "darthvader"),
+	PlayerObject("Gameplay/Characters/Heroes/Specializations/Hero_Weapon_Iden", "Iden Versio", "idenversio"),
+	PlayerObject("Gameplay/Characters/Heroes/Specializations/Hero_Lightsaber_Emperor", "Emperor Palpatine", "palpatine"),
+	PlayerObject("Gameplay/Characters/Heroes/Specializations/Hero_Weapon_Phasma", "Captain Phasma", "phasma"),
+
+	//vehicles
+	PlayerObject("Gameplay/Vehicles/Air/AirSpeeder/Vehicle_Air_AirSpeeder", "Air Speeder",  "airspeeder"),
+	PlayerObject("Gameplay/Vehicles/Air/AWing/Vehicle_Air_AWing", "A-Wing",  "awing"),
+	PlayerObject("Gameplay/Vehicles/Air/AWingRZ3/Vehicle_Air_AWingRZ3", "A-Wing RZ3",  "awing"),
+	PlayerObject("Gameplay/Vehicles/Air/BTLYwing/Vehicle_Air_BTLYWing", "BTL-B Y-Wing",  "btlbywing"),
+	PlayerObject("Gameplay/Vehicles/Air/Ywing/Vehicle_Air_YWing", "Y-Wing",  "btlaywing"),
+	PlayerObject("Gameplay/Vehicles/Air/XWing_T65/Vehicle_Air_XWing_T65", "X-Wing",  "xwingt65"),
+	PlayerObject("Gameplay/Vehicles/Air/DroidTriFighter/Vehicle_Air_DroidTriFighter", "Tri-Fighter",  "trifighter"),
+	PlayerObject("Gameplay/Vehicles/Air/VultureDroid/Vehicle_Air_VultureDroid", "Vulture Droid",  "vulturedroid"),
+	PlayerObject("Gameplay/Vehicles/Air/HyeneBomber/Vehicle_Air_HyeneBomber", "Hyene Bomber",  "hyenabomber"),
+	PlayerObject("Gameplay/Vehicles/Air/HyenaBomber/Vehicle_Air_HyenaBomber", "Hyene Bomber",  "hyenabomber"), //excelent naming conventions DICE
+	PlayerObject("Gameplay/Vehicles/Air/ARC170/Vehicle_Air_ARC170", "ARC170",  "arc170"),
+	PlayerObject("Gameplay/Vehicles/Air/Vwing/Vehicle_Air_Vwing", "V-Wing",  "vwing"),
+	PlayerObject("Gameplay/Vehicles/Air/TieFighterSpecialForces/Vehicle_Air_TieFighterSpecialForces", "Special Forces Tie Fighter",  "tiefightersf"),
+	PlayerObject("Gameplay/Vehicles/Air/TieFighterFirstOrder/Vehicle_Air_TieFighterFirstOrder", "First Order Tie Fighter",  "tiefighterfo"),
+	PlayerObject("Gameplay/Vehicles/Air/XWing_T70/Vehicle_Air_XWing_T70", "T70 X-Wing",  "xwingt70"),
+	PlayerObject("Gameplay/Vehicles/Air/TieFighter/Vehicle_Air_TieFighter", "Tie Fighter",  "tiefighter"),
+	PlayerObject("Gameplay/Vehicles/Air/TieInterceptor/Vehicle_Air_TieInterceptor", "Tie Interceptor",  "tieinterceptor"),
+	PlayerObject("Gameplay/Vehicles/Air/TieBomber/Vehicle_Air_TieBomber", "Tie Bomber",  "tiebomber")
+};
+
 
 time_t starttime = time(0);
 
 
 
 char* TranslateLevel(char* inchar) {
-	for (int i = 0; i < LevelNames.size(); i++) {
-		if (strcmp(inchar, LevelNames[i][0].c_str()) == 0) {
-			return (char*)LevelNames[i][1].c_str();
+	for (int i = 0; i < maplist.size(); i++) {
+		if (strcmp(inchar, maplist[i].baseName.c_str()) == 0) {
+			return (char*)maplist[i].mapTitle.c_str();
 		}
 	}
 	return (char*)"\0";
@@ -120,9 +144,9 @@ char* TranslateLevel(char* inchar) {
 
 
 char* TranslateClass(char* inchar) {
-	for (int i = 0; i < ClassNames.size(); i++) {
-		if (strcmp(inchar, ClassNames[i][0].c_str()) == 0) {
-			return (char*)ClassNames[i][1].c_str();
+	for (int i = 0; i < playerList.size(); i++) {
+		if (strcmp(inchar, playerList[i].baseName.c_str()) == 0) {
+			return (char*)playerList[i].playerName.c_str();
 		}
 	}
 //	return (char*)"\0";
@@ -130,9 +154,9 @@ char* TranslateClass(char* inchar) {
 }
 
 char* TranslateImage(char* inchar) {
-	for (int i = 0; i < ClassNames.size(); i++) {
-		if (strcmp(inchar, ClassNames[i][0].c_str()) == 0) {
-			return (char*)ClassNames[i][2].c_str();
+	for (int i = 0; i < playerList.size(); i++) {
+		if (strcmp(inchar, playerList[i].baseName.c_str()) == 0) {
+			return (char*)playerList[i].imageName.c_str();
 		}
 	}
 	return (char*)"default";
@@ -140,18 +164,18 @@ char* TranslateImage(char* inchar) {
 
 char* GetFaction(char* map, int TeamID, char* classname) {
 	if (TeamID == 0) return (char*)"\0";
-	for (int i = 0; i < LevelNames.size(); i++) {
-		if (strcmp(map, LevelNames[i][0].c_str()) == 0) {
+	for (int i = 0; i < maplist.size(); i++) {
+		if (strcmp(map, maplist[i].baseName.c_str()) == 0) {
 			char* str = new char[128];
 			if (strcmp(TranslateClass(classname), "Soldier") == 0) {
 
-				if (LevelNames[i][2] == "preq") {
+				if (maplist[i].trilogy == Trilogy::Prequil) {
 					strcpy(str, (TeamID == 1) ? (char*)"Galactic Republic" : (char*)"Confederacy");
 				}
-				if (LevelNames[i][2] == "orig") {
+				if (maplist[i].trilogy == Trilogy::Original) {
 					strcpy(str, (TeamID == 1) ? (char*)"Rebel Alliance" : (char*)"Galactic Empire");
 				}
-				if (LevelNames[i][2] == "new") {
+				if (maplist[i].trilogy == Trilogy::NewEra) {
 					strcpy(str, (TeamID == 1) ? (char*)"Resistance" : (char*)"First Order");
 				}
 			}
@@ -168,10 +192,10 @@ char* GetFaction(char* map, int TeamID, char* classname) {
 }
 
 char* TranslateLevelImage(char* inchar) {
-	for (int i = 0; i < LevelNames.size(); i++) {
-		if (strcmp(inchar, LevelNames[i][1].c_str()) == 0) {
-			if (strcmp(LevelNames[i][1].c_str(), "none")) return(char*)"\0";
-			return (char*)LevelNames[i][3].c_str();
+	for (int i = 0; i < maplist.size(); i++) {
+		if (strcmp(inchar, maplist[i].mapTitle.c_str()) == 0) {
+			if (strcmp(maplist[i].mapTitle.c_str(), "none")) return(char*)"\0";
+			return (char*)maplist[i].imageName.c_str();
 		}
 	}	return (char*)"\0";
 }
@@ -231,7 +255,7 @@ DWORD WINAPI Looper(LPVOID lpParam)
 {
 //	AllocConsole();
 	//freopen_s((FILE**)stdout, "CONOUT$", "w", stdout);
-	HINSTANCE hGetProcIDDLL = LoadLibrary("discord-rpc.dll");
+	HINSTANCE hGetProcIDDLL = LoadLibrary("./cmods/discord-rpc/discord-rpc.dll");	//updated for use in the mod manager
 	std::cout << std::hex << hGetProcIDDLL << std::endl;
 	if (!hGetProcIDDLL) {
 		MessageBox(NULL, "discord-rpc.dll not found", "Failure!", MB_OK);
@@ -245,11 +269,11 @@ DWORD WINAPI Looper(LPVOID lpParam)
 	f_Shutdown shutdown = (f_Shutdown)GetProcAddress(hGetProcIDDLL, "Discord_Shutdown");
 	std::cout <<std::hex<< ititialize << std::endl;
 
-	ititialize("420031141777768470", NULL, true, NULL); // put your appid there
+	ititialize("420031141777768470", NULL, true, NULL);
 	while (true)
 	{
 		Sleep(500);
-		StaticGameContext* pGC = (StaticGameContext*)(DWORD64*)(0x14428A188);
+		StaticGameContext* pGC = (StaticGameContext*)(DWORD64*)(OFFSET_ClientGameContext);
 		char* Classname = pGC->GetGameContext()->GetPlayerManager()->GetLocalPlayer()->GetPlayerClassName();
 		char* Levelname = pGC->GetGameContext()->GetClientLevel()->GetLevelName();
 		int PlayerTeam = pGC->GetGameContext()->GetPlayerManager()->GetLocalPlayer()->GetTeam();
@@ -259,6 +283,7 @@ DWORD WINAPI Looper(LPVOID lpParam)
 		
 		if (GetAsyncKeyState(VK_END)) {
 			FreeConsole();
+			shutdown();
 			FreeLibraryAndExitThread((HMODULE)lpParam, 0);
 		}
 	}

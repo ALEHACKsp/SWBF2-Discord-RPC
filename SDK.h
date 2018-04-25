@@ -2,6 +2,8 @@
 
 #pragma warning(disable : 4996)
 
+#define OFFSET_ClientGameContext 0x1442F0408
+
 class VehicleEntityData
 {
 public:
