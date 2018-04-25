@@ -8,15 +8,12 @@
 
 #pragma warning(disable : 4996)
 
-
-
 enum Trilogy {
 	Prequil,
 	Original,
 	NewEra, 
 	None
 };
-
 
 class MapObject {
 public:
@@ -27,7 +24,6 @@ public:
 	Trilogy trilogy;
 	std::string imageName;
 };
-
 
 class PlayerObject {
 public:
@@ -66,8 +62,6 @@ std::vector<MapObject> maplist = {
 	MapObject("S1/Levels/Space/SB_SpaceBear_01/SB_SpaceBear_01", "D'Qar - Resistance Base Evacuation", Trilogy::NewEra, "none")
 };
 
-
-
 std::vector<PlayerObject> playerList = {
 	//shared
 	PlayerObject("Gameplay/Characters/StormTrooperShared", "Soldier", "orig"),
@@ -85,7 +79,6 @@ std::vector<PlayerObject> playerList = {
 	PlayerObject("Gameplay/Characters/heroes/Specializations/Hero_Weapon_Special_FirstOrder_JumpTrooper", "Jump Trooper", "firstorderrockettrooper"),
 	PlayerObject("Gameplay/Characters/heroes/Specializations/Hero_Weapon_Special_JumpTrooper", "Rocket Trooper", "skytrooper"),
 	PlayerObject("Gameplay/Characters/heroes/Specializations/Hero_Weapon_B2RP", "B2-RP Rocket Droid", "b2rprocketdroid"),
-
 
 	//heroes
 	PlayerObject("Gameplay/Characters/Heroes/Specializations/Hero_Lightsaber_Luke", "Luke Skywalker", "lukeskywalker"),	// note the difference in capitolization...
@@ -129,10 +122,6 @@ std::vector<PlayerObject> playerList = {
 };
 
 
-time_t starttime = time(0);
-
-
-
 char* TranslateLevel(char* inchar) {
 	for (int i = 0; i < maplist.size(); i++) {
 		if (strcmp(inchar, maplist[i].baseName.c_str()) == 0) {
@@ -141,7 +130,6 @@ char* TranslateLevel(char* inchar) {
 	}
 	return (char*)"\0";
 }
-
 
 char* TranslateClass(char* inchar) {
 	for (int i = 0; i < playerList.size(); i++) {
@@ -218,6 +206,7 @@ typedef struct DiscordRichPresence {
 	int8_t instance;
 } DiscordRichPresence; 
 
+time_t starttime = time(0);
 
 DiscordRichPresence GetUpdate(char* data, const char* faction, const char* image) {
 
@@ -225,19 +214,15 @@ DiscordRichPresence GetUpdate(char* data, const char* faction, const char* image
 	DiscordRichPresence discordPresence;
 	memset(&discordPresence, 0, sizeof(discordPresence));
 	discordPresence.state = data;
-//	sprintf(buffer, "Score:  %d", score);
 	discordPresence.details = faction;
 	discordPresence.largeImageKey = image;
 	discordPresence.largeImageText = faction;
-
 	discordPresence.smallImageKey = TranslateLevelImage(data);
 	discordPresence.smallImageText = data;
-
 	discordPresence.startTimestamp = starttime;
 	discordPresence.instance = 0;
 	return discordPresence;
 }
-
 
 typedef void(cdecl *f_Initialize)(const char* appid, int shit, bool autoRegister, const char* steamId);
 
@@ -246,10 +231,6 @@ typedef void(cdecl *f_UpdatePresence)(const DiscordRichPresence* presence);
 typedef void(cdecl *f_RunCallbacks)();
 
 typedef void(cdecl *f_Shutdown)();
-
-
-
-char* oldname = new char[256];
 
 DWORD WINAPI Looper(LPVOID lpParam)
 {
@@ -268,7 +249,6 @@ DWORD WINAPI Looper(LPVOID lpParam)
 	f_RunCallbacks runCallbacks = (f_RunCallbacks)GetProcAddress(hGetProcIDDLL, "Discord_RunCallbacks");
 	f_Shutdown shutdown = (f_Shutdown)GetProcAddress(hGetProcIDDLL, "Discord_Shutdown");
 	std::cout <<std::hex<< ititialize << std::endl;
-
 	ititialize("420031141777768470", NULL, true, NULL);
 	while (true)
 	{
@@ -277,10 +257,7 @@ DWORD WINAPI Looper(LPVOID lpParam)
 		char* Classname = pGC->GetGameContext()->GetPlayerManager()->GetLocalPlayer()->GetPlayerClassName();
 		char* Levelname = pGC->GetGameContext()->GetClientLevel()->GetLevelName();
 		int PlayerTeam = pGC->GetGameContext()->GetPlayerManager()->GetLocalPlayer()->GetTeam();
-
-
 		updatePresence(&GetUpdate(TranslateLevel(Levelname), GetFaction(Levelname, PlayerTeam, Classname),  TranslateImage(Classname)));
-		
 		if (GetAsyncKeyState(VK_END)) {
 			FreeConsole();
 			shutdown();
