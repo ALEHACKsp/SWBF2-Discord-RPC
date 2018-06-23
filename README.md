@@ -1,5 +1,6 @@
 # SWBF2-Discord-RPC
 
-![](https://s31.postimg.org/kbdbsbraj/unknown.png)
+![Imgur](https://i.imgur.com/ieitGUg.png)
 
-Currently requires the `discord-rpc.dll` to be in the game's directory, and `swbf2_rpc.dll` (or whatever you compile it as) to be manually injected.
+Discord RPC lib is now staticly linked, so you can just inject without 
+needing the other dll.
