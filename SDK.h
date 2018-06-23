@@ -1,8 +1,29 @@
 #pragma once
 
+#include <time.h>
+#include <vector>
+#include <windows.h>
+#include <iostream>
+#include <time.h>
+#include <string>
+
+
 #pragma warning(disable : 4996)
 
-#define OFFSET_ClientGameContext 0x1442F0408
+#define OFFSET_DXRENDERER 0x144521DB0
+#define OFFSET_GAMERENDERER 0x144523DE0
+#define OFFSET_WORLDRENDERER 0x14443383F
+#define OFFSET_GAMETIMESETTINGS 0x144028DD0
+#define OFFSET_CAMERAUPDATE 0x140911280
+#define OFFSET_MOUSEHOOK 0x1410A4150
+#define OFFSET_DRAWOUTLINE 0x141E2F470
+#define OFFSET_RESOURCEMANAGER 0x1401EF531
+#define OFFSET_CLIENTGAMECONTEXT 0x1443046D0
+#define OFFSET_FIRSTTYPEINFO 0x1440293E0
+#define OFFSET_VIEWANGLEFUNC 0x141639933
+#define OFFSET_MAIN 0x144028BE8  // the real one lol
+#define OFFSET_SPREADPATCH 0x1416025A9
+#define OFFSET_RECOILPATCH 0x14160634F
 
 class VehicleEntityData
 {
@@ -53,7 +74,7 @@ public:
 class ClientSoldierEntity
 {
 public:
-	char pad_0000[728]; //0x0000
+	char pad_0000[760]; //0x0000
 	class SoldierBlueprint* soldierBlueprint; //0x02D8
 	char pad_02E0[1376]; //0x02E0
 
@@ -64,17 +85,39 @@ public:
 	}
 }; //Size: 0x0840
 
+class MatchInfo
+{
+public:
+	char pad_0000[8]; //0x0000
+	char* GameMode; //0x0008
+	char pad_0010[1080]; //0x0010
+	char* GetMatchMode() {
+		if (this != nullptr && this->GameMode != nullptr) {
+			return this->GameMode;
+		}
+		return (char*)"Menu";
+	}
+}; //Size: 0x0448
+
 class ClientLevel
 {
 public:
-	char pad_0000[56]; //0x0000
+	char pad_0000[48]; //0x0000
+	class MatchInfo* matchInfo; //0x0030
 	char* LevelName; //0x0038
-	char pad_0040[264]; //0x0040
+	char pad_0040[1032]; //0x0040
 	char* GetLevelName() {
 		if (this != nullptr && this->LevelName != nullptr) {
 			return this->LevelName;
 		}
 		return (char*)"\0";
+	}
+	MatchInfo* GetMatchInfo()
+	{
+		if (this != nullptr && this->matchInfo != nullptr)
+		{
+			return this->matchInfo;
+		}
 	}
 }; //Size: 0x0148
 
@@ -83,14 +126,20 @@ class ClientPlayer
 {
 public:
 	char pad_0000[24]; //0x0000
-	char* NameClass; //0x0018
+	char* Name; //0x0018
 	char pad_0020[56]; //0x0020
 	uint32_t Team; //0x0058
 	char pad_005C[420]; //0x005C
 	class AttachedControllable* attachedControllable; //0x0200
 	char pad_0208[8]; //0x0208
 	class ClientSoldierEntity* controlledControllable; //0x0210
-	char pad_0218[3624]; //0x0218
+	char pad_0218[4660]; //0x0218
+	int32_t Score; //0x144c
+	int32_t Unknown; //0x1450
+	int32_t Kills; //0x1454
+	int32_t Assists; //0x1458
+	int32_t Deaths; //0x145C
+	char pad_1460[3040]; //0x1460
 
 
 	
@@ -115,8 +164,8 @@ public:
 	}
 
 	char* GetName() {
-		if (this != nullptr && this->NameClass != nullptr) {
-			return this->NameClass;
+		if (this != nullptr && this->Name != nullptr) {
+			return this->Name;
 		}
 		return (char*)"\0";
 	}
